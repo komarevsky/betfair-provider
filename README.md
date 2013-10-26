@@ -1,15 +1,19 @@
-betfair-provider
+Betfair-Provider
 ================
 
-repository to generate Betfair API classes from Betfair WSDL files
+Repository to generate Betfair API classes from Betfair WSDL files
+_ _ _
 
+Build
+-----
 
-==== BUILD =====
+        mvn clean install
 
-mvn clean install
+_ _ _
 
-
-==== AUTHOR ====
+Author
+------
 
 Siarhei Skavarodkin
+
 email: komarevsky (at) gmail (dot) com
