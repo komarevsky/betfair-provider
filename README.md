@@ -12,4 +12,4 @@ mvn clean install
 ==== AUTHOR ====
 
 Siarhei Skavarodkin
-komarevsky (at) gmail (dot) com
+email: komarevsky (at) gmail (dot) com
