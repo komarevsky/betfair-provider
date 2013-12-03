@@ -18,6 +18,10 @@
         <url>https://github.com/komarevsky/betfair-provider/issues</url>
     </issueManagement>
 
+    <scm>
+        <connection>scm:git:https://github.com/komarevsky/betfair-provider</connection>
+    </scm>
+
     <distributionManagement>
         <repository>
             <id>repo</id>
@@ -81,6 +85,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <preparationGoals>clean install</preparationGoals>
+                    <goals>deploy</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
             </plugin>
         </plugins>
     </build>
