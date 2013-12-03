@@ -19,7 +19,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/komarevsky/betfair-provider</connection>
+        <connection>scm:git:git@github.com:komarevsky/betfair-provider.git</connection>
+        <url>scm:git:git@github.com:komarevsky/betfair-provider.git</url>
+        <developerConnection>scm:git:git@github.com:komarevsky/betfair-provider.git</developerConnection>
     </scm>
 
     <distributionManagement>
@@ -85,15 +87,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <preparationGoals>clean install</preparationGoals>
-                    <goals>deploy</goals>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                </configuration>
             </plugin>
         </plugins>
     </build>
