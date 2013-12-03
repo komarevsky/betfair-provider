@@ -11,21 +11,22 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>2.6.1</cxf.version>
-        <repo.id>komarevsky.repo.github</repo.id>
-        <repo.url>https://github.com/komarevsky/maven-repo/releases</repo.url>
-        <issues.tracker>https://github.com/komarevsky/betfair-provider/issues</issues.tracker>
     </properties>
 
     <issueManagement>
         <system>Github </system>
-        <url>${issues.tracker}</url>
+        <url>https://github.com/komarevsky/betfair-provider/issues</url>
     </issueManagement>
 
     <distributionManagement>
         <repository>
-            <id>${repo.id}</id>
-            <url>${repo.url}</url>
+            <id>repo</id>
+            <url>https://github.com/komarevsky/maven-repo/tree/master/releases</url>
         </repository>
+        <snapshotRepository>
+            <id>repo-snapshot</id>
+            <url>https://github.com/komarevsky/maven-repo/tree/master/snapshots</url>
+        </snapshotRepository>
     </distributionManagement>
     
     <dependencies>
