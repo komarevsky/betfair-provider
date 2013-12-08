@@ -10,7 +10,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>2.6.1</cxf.version>
-        <release.plugin.version>2.4.2</release.plugin.version>
+
+        <!-- github server corresponds to entry in ~/.m2/settings.xml -->
+        <github.global.server>github</github.global.server>
     </properties>
 
     <issueManagement>
@@ -26,13 +28,10 @@
 
     <distributionManagement>
         <repository>
-            <id>repo</id>
-            <url>https://github.com/komarevsky/maven-repo/releases</url>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
-        <snapshotRepository>
-            <id>repo-snapshot</id>
-            <url>https://github.com/komarevsky/maven-repo/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
     
     <dependencies>
@@ -50,17 +49,31 @@
     </dependencies>
   
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${release.plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.8</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                    <includes><include>**/*</include></includes>
+                    <repositoryName>betfair-provider</repositoryName>      <!-- github repo name -->
+                    <repositoryOwner>komarevsky</repositoryOwner>    <!-- github username  -->
+                </configuration>
+                <executions>
+                  <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                  <execution>
+                    <goals>
+                      <goal>site</goal>
+                    </goals>
+                    <phase>deploy</phase>
+                  </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
