@@ -16,10 +16,6 @@
         <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
         <deploy.plugin.version>2.8.1</deploy.plugin.version>
         <source.plugin.version>2.2.1</source.plugin.version>
-
-        <!-- Local maven repo -->
-        <localrepo.release.url>https://github.com/komarevsky/maven-repo/raw/master/releases</localrepo.release.url>
-        <localrepo.snapshot.url>https://github.com/komarevsky/maven-repo/raw/master/snapshots</localrepo.snapshot.url>
     </properties>
 
     <issueManagement>
@@ -36,10 +32,12 @@
     <distributionManagement>
         <repository>
             <id>komarevsky-release-repo</id>
+            <!-- define it in ~/.m2/settings.xml -->
             <url>${localrepo.release.url}</url>
         </repository>
         <snapshotRepository>
             <id>komarevsky-snapshot-repo</id>
+            <!-- define it in ~/.m2/settings.xml -->
             <url>${localrepo.snapshot.url}</url>
         </snapshotRepository>
     </distributionManagement>
