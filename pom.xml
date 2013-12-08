@@ -16,10 +16,10 @@
         <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
         <deploy.plugin.version>2.8.1</deploy.plugin.version>
         <source.plugin.version>2.2.1</source.plugin.version>
-        <github-site.plugin.version>0.8</github-site.plugin.version>
 
-        <!-- github server corresponds to entry in ~/.m2/settings.xml -->
-        <github.global.server>github</github.global.server>
+        <!-- Local maven repo -->
+        <localrepo.release.url>https://github.com/komarevsky/maven-repo/raw/master/releases</localrepo.release.url>
+        <localrepo.snapshot.url>https://github.com/komarevsky/maven-repo/raw/master/snapshots</localrepo.snapshot.url>
     </properties>
 
     <issueManagement>
@@ -35,10 +35,13 @@
 
     <distributionManagement>
         <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo</url>
+            <id>komarevsky-release-repo</id>
+            <url>${localrepo.release.url}</url>
         </repository>
+        <snapshotRepository>
+            <id>komarevsky-snapshot-repo</id>
+            <url>${localrepo.snapshot.url}</url>
+        </snapshotRepository>
     </distributionManagement>
     
     <dependencies>
@@ -79,40 +82,11 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${deploy.plugin.version}</version>
                 </plugin>
-                <plugin>
-                    <groupId>com.github.github</groupId>
-                    <artifactId>site-maven-plugin</artifactId>
-                    <version>${github-site.plugin.version}</version>
-                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-        
-            <!-- PUSH NEW BUILD TO MAVEN REPO -->
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <configuration>
-                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
-                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
-                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
-                    <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
-                    <includes><include>**/*</include></includes>
-                    <repositoryName>betfair-provider</repositoryName>      <!-- github repo name -->
-                    <repositoryOwner>komarevsky</repositoryOwner>    <!-- github username  -->
-                </configuration>
-                <executions>
-                  <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-                  <execution>
-                    <goals>
-                      <goal>site</goal>
-                    </goals>
-                    <phase>deploy</phase>
-                  </execution>
-                </executions>
-            </plugin>
-            
+
             <!-- GENERATE BETFAIR GLOBAL AND EXCHANGE CLASSES -->
             <plugin>
                 <groupId>org.apache.cxf</groupId>
